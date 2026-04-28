@@ -11,7 +11,7 @@ const PhotoDetailsPage = async ({ params }) => {
   console.log(exists);
 
   return (
-    <div className="lg:flex justify-content items-start gap-6">
+    <div className="lg:flex justify-content items-start gap-6 mb-10">
       <div className="relative aspect-video w-full max-w-xl">
         <Image
           src={exists?.imageUrl}

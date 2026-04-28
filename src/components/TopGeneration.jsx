@@ -2,8 +2,10 @@ import { fetchData } from "@/data/dataFetch";
 import PhotoCard from "./PhotoCard";
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import { Suspense } from "react";
+import PhotoCardSkeleton from "./PhotoCardSkeleton";
 
-const TopGeneration = async () => {
+const TopGenerationContent = async () => {
   const photos = await fetchData();
   const topPhotos = photos.slice(0, 5); // Get the top 5 photos
   return (
@@ -24,5 +26,15 @@ const TopGeneration = async () => {
     </div>
   );
 };
+
+const TopGeneration = async () => {
+
+  return (
+    <Suspense fallback={<PhotoCardSkeleton/>}>
+      <TopGenerationContent />
+    </Suspense>
+  )
+}
+
 
 export default TopGeneration;

@@ -14,12 +14,12 @@ const AllPhotoPage = async ({ searchParams }) => {
       )
     : photos;
   return (
-    <div>
+    <div >
       <h2 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-5">
         All Photos
       </h2>
       <CategoryPage />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {filteredPhotos?.map((photo) => (
           <PhotoCard key={photo.id} photo={photo} />
         ))}

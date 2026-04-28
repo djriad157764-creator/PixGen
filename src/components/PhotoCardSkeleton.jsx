@@ -1,27 +1,15 @@
 // app/all-photos/loading.js
 import { Card, Skeleton } from "@heroui/react";
 
-const loading = () => {
+const PhotoCardSkeleton = () => {
   // Skeleton cards array
-  const skeletonCards = Array(10).fill(null);
+  const skeletonCards = Array(5).fill(null);
 
   return (
-    <div className="animate-pulse">
+    <div className="">
       {/* Header Skeleton */}
       <div className="mb-5">
         <Skeleton className="h-8 sm:h-10 md:h-12 lg:h-14 w-48 rounded-lg" />
-      </div>
-
-      {/* Categories Skeleton */}
-      <div className="mb-6">
-        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-          {[...Array(9)].map((_, i) => (
-            <Skeleton
-              key={i}
-              className="h-10 w-24 rounded-full flex-shrink-0"
-            />
-          ))}
-        </div>
       </div>
 
       {/* Photos Grid Skeleton */}
@@ -30,16 +18,28 @@ const loading = () => {
           <Card key={index} className="w-full overflow-hidden" radius="lg">
             {/* Image Skeleton */}
             <div className="relative aspect-square w-full">
-              <Skeleton className="rounded-2xl w-full h-full" />
+              <Skeleton
+              
+                className="rounded-2xl w-full h-full"
+              />
             </div>
 
             {/* Content Skeleton */}
             <div className="p-3 space-y-3">
               {/* Title Skeleton */}
               <div className="space-y-2">
-                <Skeleton className="h-5 w-3/4 rounded-lg" />
-                <Skeleton className="h-4 w-full rounded-lg" />
-                <Skeleton className="h-4 w-2/3 rounded-lg" />
+                <Skeleton
+                 
+                  className="h-5 w-3/4 rounded-lg"
+                />
+                <Skeleton
+                  
+                  className="h-4 w-full rounded-lg"
+                />
+                <Skeleton
+                  
+                  className="h-4 w-2/3 rounded-lg"
+                />
               </div>
 
               {/* Stats Skeleton */}
@@ -60,8 +60,11 @@ const loading = () => {
           </Card>
         ))}
       </div>
+      <div className="flex justify-center items-center mt-5">
+        <Skeleton className="h-9 w-40 rounded-full" />
+      </div>
     </div>
   );
 };
 
-export default loading;
+export default PhotoCardSkeleton;
