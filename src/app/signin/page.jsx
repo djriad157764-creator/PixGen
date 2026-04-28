@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { Eye, EyeSlash } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import {
@@ -7,20 +10,51 @@ import {
   FieldError,
   Form,
   Input,
+  InputGroup,
   Label,
   TextField,
 } from "@heroui/react";
 
 const SignInPage = () => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const form = Object.fromEntries(formData.entries());
-  };
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError]=useState('')
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+       const formData = new FormData(e.currentTarget);
+       const form = Object.fromEntries(formData.entries());
+
+    try {
+  const { error } = await authClient.signIn.email({
+    email: form.email,
+    password: form.password,
+    callbackURL: "/",
+  });
+
+  if (error) {
+    setError(error.message);
+    setIsLoading(false)
+  } else {
+    setError("Login successful!");
+    setIsLoading(false)
+  }
+    } catch (e) {
+      setError("Something went wrong. Please try again.");
+      setIsLoading(false)
+   }
+ 
+
+    
+  };
+console.log(error)
   return (
     <div className="mx-auto flex rounded-md mb-20 w-full max-w-md flex-col items-center justify-center gap-6 px-4 bg-white">
       <h4 className="mt-10 font-bold text-2xl sm:text-3xl">Sign In </h4>
+
+      <p>{error}</p>
       <Form
         className="flex w-96 flex-col  gap-4"
         render={(props) => <form {...props} data-custom="foo" />}
@@ -63,9 +97,25 @@ const SignInPage = () => {
           }}
         >
           <Label>Password</Label>
-          <Input className="bg-gray-50" placeholder="Enter your password" />
-
-          <FieldError />
+          <InputGroup>
+            <InputGroup.Input
+              placeholder="Enter Your Password"
+              type={isVisible ? "text" : "password"}
+            />
+            <InputGroup.Suffix className="pr-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ?
+                  <Eye className="size-4 text-gray-500" />
+                : <EyeSlash className="size-4 text-gray-500" />}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
         </TextField>
 
         <div className="flex items-center gap-2">
@@ -82,11 +132,11 @@ const SignInPage = () => {
         </div>
 
         <div className="">
-          <Button className="w-full mb-2" type="submit">
-            Login
+          <Button isLoading={isLoading} className="w-full mb-2" type="submit">
+            {isLoading ? "Login..." : "Login"}
           </Button>
           <p className="text-center text-sm">
-            Don't have an account?{" "}
+            Don`t have an account?{" "}
             <Link
               href="/signup"
               className="text-blue-500 font-semibold hover:underline"

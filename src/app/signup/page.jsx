@@ -7,15 +7,38 @@ import {
   FieldError,
   Form,
   Input,
+  InputGroup,
   Label,
   TextField,
 } from "@heroui/react";
+import { useState } from "react";
+import { Eye, EyeSlash } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const SignUpPage = () => {
-  const onSubmit = (e) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const form = Object.fromEntries(formData.entries());
+    const { data, error } = await authClient.signUp.email({
+      email: form.email,
+      password: form.password,
+      name: form.fullName,
+
+      callbackURL: "/",
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert(
+        "Sign up successful! Please check your email to verify your account.",
+      );
+      redirect("/signin");
+    }
   };
 
   return (
@@ -70,9 +93,25 @@ const SignUpPage = () => {
           }}
         >
           <Label>Password</Label>
-          <Input className="bg-gray-50" placeholder="Enter your password" />
-
-          <FieldError />
+          <InputGroup>
+            <InputGroup.Input
+              placeholder="Enter Your Password"
+              type={isVisible ? "text" : "password"}
+            />
+            <InputGroup.Suffix className="pr-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ?
+                  <Eye className="size-4 text-gray-500" />
+                : <EyeSlash className="size-4 text-gray-500" />}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
         </TextField>
 
         <div className="">
@@ -83,7 +122,7 @@ const SignUpPage = () => {
             Already have an account?{" "}
             <Link
               href="/signin"
-              className="text-blue-500 font-semibold hover:underline"
+              className="text-blue-800 font-semibold hover:underline"
             >
               Sign In
             </Link>
