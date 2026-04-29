@@ -6,10 +6,7 @@ let cachedClient = null;
 
 const getMongoClient = () => {
   if (!cachedClient) {
-    const uri = process.env.MONGODB_URI;
-    if (!uri) {
-      throw new Error("MONGODB_URI environment variable is not set");
-    }
+    const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
     cachedClient = new MongoClient(uri);
   }
   return cachedClient;
