@@ -113,7 +113,7 @@ Through the development of this project, I significantly improved my skills in:
 
 *   **Name:** Md Riad Shekh
 *   **Email:** [EMAIL_ADDRESS](mailto:riadswebdev@gmail.com )
-*   **Phone:** +8801314674108
+*   **Phone:** [tel:+8801314674108]
 *   **LinkedIn:** [https://www.linkedin.com/in/riad-shekh ](https://www.linkedin.com/in/riad-shekh)
 
 ---
