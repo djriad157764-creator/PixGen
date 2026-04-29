@@ -111,10 +111,10 @@ Through the development of this project, I significantly improved my skills in:
 
 ## 👨‍💻 Author Info
 
-*   **Name:** [Md Riad Shekh]
-*   **Email:** [riadswebdev@gmail.com]
-*   **Phone:** [+8801314674108]
-*   **Portfolio/LinkedIn:** [www.linkedin.com/in/riad-shekh]
+*   **Name:** Md Riad Shekh
+*   **Email:** [EMAIL_ADDRESS](mailto:riadswebdev@gmail.com )
+*   **Phone:** +8801314674108
+*   **LinkedIn:** [https://www.linkedin.com/in/riad-shekh ](https://www.linkedin.com/in/riad-shekh)
 
 ---
 *If you like this project, please consider giving it a ⭐ on GitHub!*
